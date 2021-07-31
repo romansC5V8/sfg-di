@@ -3,6 +3,7 @@ package guru.springframework.sfgdi;
 import guru.springframework.sfgdi.controllers.ConstructorInjectedController;
 import guru.springframework.sfgdi.controllers.I18nController;
 import guru.springframework.sfgdi.controllers.MyController;
+import guru.springframework.sfgdi.controllers.PetController;
 import guru.springframework.sfgdi.controllers.PropertyInjectedController;
 import guru.springframework.sfgdi.controllers.SetterInjectedController;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +17,10 @@ public class SfgDiApplication {
 		ApplicationContext ctx = SpringApplication.run(SfgDiApplication.class, args);
 
 		System.out.println("\n***** PROFILES *****\n");
+
+		PetController petController = ctx.getBean("petController", PetController.class);
+		System.out.print("The Best Pet is: ");
+		System.out.println(petController.whichPetIsTheBest() + "\n");
 
 		I18nController i18nController = (I18nController) ctx.getBean("i18nController");
 
