@@ -1,10 +1,7 @@
 package guru.springframework.sfgdi.services;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Service;
-
-@Profile("EN")
-@Service("i18nService")
+//@Profile("EN") --> Nach GreetingServiceConfig gewandert. Wird direkt an der @Bean dran geschrieben
+//@Service("i18nService") --> Nach GreetingServiceConfig gewandert. Der Qualifier wurde zum Methodennamen
 public class I18nEnglishGreetingService implements GreetingService {
 
 	@Override
