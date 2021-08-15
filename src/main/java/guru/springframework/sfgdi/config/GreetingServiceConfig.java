@@ -16,11 +16,6 @@ import org.springframework.context.annotation.Profile;
 @Configuration // --> Sagt Spring "das ist eine Konfigurationsklasse und definiert Beans"
 public class GreetingServiceConfig {
 
-	@Bean
-	EnglishGreetingRepository englishGreetingRepository() {
-		return new EnglishGreetingRepositoryImpl();
-	}
-
 	// --> Mit dieser Annotation wird das zurückgegebene Objekt zu einer Spring-Komponente. EHER FÜR THIRD-PARTY-KLASSEN !!!!
 	@Bean
 	ConstructorInjectedGreetingService constructorInjectedGreetingService() {
@@ -42,6 +37,15 @@ public class GreetingServiceConfig {
 	@Bean
 	PrimaryGreetingService primaryGreetingService() {
 		return new PrimaryGreetingService();
+	}
+
+	// -------------------------------------------------------------------------------------------------------------------------
+	// ----------------------------------------- DEPENDENCY INJECTION ----------------------------------------------------------
+	// -------------------------------------------------------------------------------------------------------------------------
+
+	@Bean
+	EnglishGreetingRepository englishGreetingRepository() {
+		return new EnglishGreetingRepositoryImpl();
 	}
 
 	// --> Der Servicename ist der Methodenname (defaultmäßig). Also kann man "i18nService()" als Methodenname verwenden.
