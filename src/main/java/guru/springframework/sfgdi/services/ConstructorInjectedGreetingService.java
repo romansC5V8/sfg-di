@@ -1,8 +1,6 @@
 package guru.springframework.sfgdi.services;
 
-import org.springframework.stereotype.Service;
-
-@Service
+//@Service --> Hier braucht man nicht die Annotation. Diese Mimik wurde in der GreetingServiceConfig über eine Bean definiert.
 public class ConstructorInjectedGreetingService implements GreetingService {
 
 	@Override
