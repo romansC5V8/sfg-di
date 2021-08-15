@@ -1,5 +1,7 @@
 package guru.springframework.sfgdi.config;
 
+import guru.springframework.sfgdi.repositories.EnglishGreetingRepository;
+import guru.springframework.sfgdi.repositories.EnglishGreetingRepositoryImpl;
 import guru.springframework.sfgdi.services.ConstructorInjectedGreetingService;
 import guru.springframework.sfgdi.services.I18nEnglishGreetingService;
 import guru.springframework.sfgdi.services.I18nSpanishGreetingService;
@@ -13,6 +15,11 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration // --> Sagt Spring "das ist eine Konfigurationsklasse und definiert Beans"
 public class GreetingServiceConfig {
+
+	@Bean
+	EnglishGreetingRepository englishGreetingRepository() {
+		return new EnglishGreetingRepositoryImpl();
+	}
 
 	// --> Mit dieser Annotation wird das zurückgegebene Objekt zu einer Spring-Komponente. EHER FÜR THIRD-PARTY-KLASSEN !!!!
 	@Bean
@@ -41,8 +48,8 @@ public class GreetingServiceConfig {
 	// Das ist ähnlich wie in der Klasse selbst: @Service("i18nService"). Siehe nächsten Service!!!
 	@Bean("i18nService")
 	@Profile("EN")
-	I18nEnglishGreetingService i18nService() {
-		return new I18nEnglishGreetingService();
+	I18nEnglishGreetingService i18nService(EnglishGreetingRepository englishGreetingRepository) {
+		return new I18nEnglishGreetingService(englishGreetingRepository);
 	}
 
 	// --> Hier müsste man den Serivce auch "i18nService()" benennen, das geht aber Javamäßig nicht. Deshalb gibt man explizit
