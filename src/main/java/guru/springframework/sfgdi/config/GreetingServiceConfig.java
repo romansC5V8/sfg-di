@@ -4,7 +4,6 @@ import com.springframework.pets.PetService;
 import com.springframework.pets.PetServiceFactory;
 import guru.springframework.sfgdi.repositories.EnglishGreetingRepository;
 import guru.springframework.sfgdi.repositories.EnglishGreetingRepositoryImpl;
-import guru.springframework.sfgdi.services.ConstructorInjectedGreetingService;
 import guru.springframework.sfgdi.services.I18nEnglishGreetingService;
 import guru.springframework.sfgdi.services.I18nSpanishGreetingService;
 import guru.springframework.sfgdi.services.PrimaryGreetingService;
@@ -12,17 +11,19 @@ import guru.springframework.sfgdi.services.PropertyInjectedGreetingService;
 import guru.springframework.sfgdi.services.SetterInjectedGreetingService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
+@ImportResource("classpath:sfgdi-config.xml") // resources-Folder ist im Classpath. Diese Annotation funktioniert auch in der Main-Klasse!!!
 @Configuration // --> Sagt Spring "das ist eine Konfigurationsklasse und definiert Beans"
 public class GreetingServiceConfig {
 
 	// --> Mit dieser Annotation wird das zurückgegebene Objekt zu einer Spring-Komponente. EHER FÜR THIRD-PARTY-KLASSEN !!!!
-	@Bean
-	ConstructorInjectedGreetingService constructorInjectedGreetingService() {
-		return new ConstructorInjectedGreetingService();
-	}
+	//@Bean --> ist nun auskommentiert wegen der XML-Konfiguration
+	//ConstructorInjectedGreetingService constructorInjectedGreetingService() {
+	//	return new ConstructorInjectedGreetingService();
+	//}
 
 	// --> Defaultmäßig wird der Methodenname als Bean-Name im Spring-Container verwendet (am Besten Klassenname mit Kleinbuchstabe am Anfang)
 	@Bean
@@ -44,7 +45,7 @@ public class GreetingServiceConfig {
 	// -------------------------------------------------------------------------------------------------------------------------
 	// ----------------------------------------- DEPENDENCY INJECTION ----------------------------------------------------------
 	// -------------------------------------------------------------------------------------------------------------------------
-	
+
 	@Bean
 	EnglishGreetingRepository englishGreetingRepository() {
 		return new EnglishGreetingRepositoryImpl();

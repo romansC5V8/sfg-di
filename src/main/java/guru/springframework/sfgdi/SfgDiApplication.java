@@ -13,6 +13,8 @@ import org.springframework.context.ApplicationContext;
 //@ComponentScan(basePackages = {"guru.springframework.sfgdi", "com.springframework.pets"}) --> Nach dem "Factory Beans"-Teil tut man so als
 // würden die Pet-Services von einer 3rd-party-Komponente kommen. Da sie in der Config als FactoryBean instanziiert werden, braucht man nicht
 // in anderen Packages zu scannen. Also kann @ComponentScan raus.
+// ---------------------------
+//@ImportResource("classpath:sfgdi-config.xml") // resources-Folder ist im Classpath. Hier geht's auch aber es liegt schon in der Config-Klasse.
 @SpringBootApplication
 public class SfgDiApplication {
 
