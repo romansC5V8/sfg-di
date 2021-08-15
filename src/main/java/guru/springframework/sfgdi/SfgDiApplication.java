@@ -9,9 +9,10 @@ import guru.springframework.sfgdi.controllers.SetterInjectedController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan(basePackages = {"guru.springframework.sfgdi", "com.springframework.pets"})
+//@ComponentScan(basePackages = {"guru.springframework.sfgdi", "com.springframework.pets"}) --> Nach dem "Factory Beans"-Teil tut man so als
+// würden die Pet-Services von einer 3rd-party-Komponente kommen. Da sie in der Config als FactoryBean instanziiert werden, braucht man nicht
+// in anderen Packages zu scannen. Also kann @ComponentScan raus.
 @SpringBootApplication
 public class SfgDiApplication {
 
