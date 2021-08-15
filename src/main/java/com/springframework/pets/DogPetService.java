@@ -1,10 +1,8 @@
 package com.springframework.pets;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Service;
-
-@Profile({"dog", "default"})
-@Service
+// --> Dies ist deshalb auskommentiert, um zu "simulieren", dass diese 3rd-party-Klassen sind. Wir arbeiten mit Java Configuration
+//@Profile({"dog", "default"})
+//@Service
 public class DogPetService implements PetService {
 
 	@Override

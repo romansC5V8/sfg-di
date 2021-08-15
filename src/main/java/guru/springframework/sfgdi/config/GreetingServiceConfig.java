@@ -1,5 +1,7 @@
 package guru.springframework.sfgdi.config;
 
+import com.springframework.pets.PetService;
+import com.springframework.pets.PetServiceFactory;
 import guru.springframework.sfgdi.repositories.EnglishGreetingRepository;
 import guru.springframework.sfgdi.repositories.EnglishGreetingRepositoryImpl;
 import guru.springframework.sfgdi.services.ConstructorInjectedGreetingService;
@@ -15,11 +17,6 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration // --> Sagt Spring "das ist eine Konfigurationsklasse und definiert Beans"
 public class GreetingServiceConfig {
-
-	@Bean
-	EnglishGreetingRepository englishGreetingRepository() {
-		return new EnglishGreetingRepositoryImpl();
-	}
 
 	// --> Mit dieser Annotation wird das zurückgegebene Objekt zu einer Spring-Komponente. EHER FÜR THIRD-PARTY-KLASSEN !!!!
 	@Bean
@@ -44,6 +41,15 @@ public class GreetingServiceConfig {
 		return new PrimaryGreetingService();
 	}
 
+	// -------------------------------------------------------------------------------------------------------------------------
+	// ----------------------------------------- DEPENDENCY INJECTION ----------------------------------------------------------
+	// -------------------------------------------------------------------------------------------------------------------------
+	
+	@Bean
+	EnglishGreetingRepository englishGreetingRepository() {
+		return new EnglishGreetingRepositoryImpl();
+	}
+
 	// --> Der Servicename ist der Methodenname (defaultmäßig). Also kann man "i18nService()" als Methodenname verwenden.
 	// Das ist ähnlich wie in der Klasse selbst: @Service("i18nService"). Siehe nächsten Service!!!
 	@Bean("i18nService")
@@ -58,5 +64,26 @@ public class GreetingServiceConfig {
 	@Profile({"ES", "default"})
 	I18nSpanishGreetingService i18nSpanishGreetingService() {
 		return new I18nSpanishGreetingService();
+	}
+
+	// -------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------- FACTORY BEANS -------------------------------------------------------------
+	// -------------------------------------------------------------------------------------------------------------------------
+
+	@Bean
+	PetServiceFactory petServiceFactory() {
+		return new PetServiceFactory();
+	}
+
+	@Bean
+	@Profile({"dog", "default"})
+	PetService dogPetService(PetServiceFactory petServiceFactory) {
+		return petServiceFactory.getPetService("dog");
+	}
+
+	@Bean
+	@Profile("cat")
+	PetService catPetService(PetServiceFactory petServiceFactory) {
+		return petServiceFactory.getPetService("cat");
 	}
 }
