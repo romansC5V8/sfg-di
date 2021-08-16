@@ -16,9 +16,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
 
-@PropertySource("classpath:datasource.properties") // Das ist ein "Spring"-Mechanismus. Nicht "Spring Boot"!!!!
+// -----------------------------------------------------------------------------------------
+/* Spring Boot kann man als ein Wrapper um den Spring-Framework drum rum, beschreiben !!!!*/
+// -----------------------------------------------------------------------------------------
+
+//@PropertySource("classpath:datasource.properties") // Das ist ein "Spring"-Mechanismus. Nicht "Spring Boot"!!!!
 @ImportResource("classpath:sfgdi-config.xml") // resources-Folder ist im Classpath. Diese Annotation funktioniert auch in der Main-Klasse!!!
 @Configuration // --> Sagt Spring "das ist eine Konfigurationsklasse und definiert Beans"
 public class GreetingServiceConfig {
