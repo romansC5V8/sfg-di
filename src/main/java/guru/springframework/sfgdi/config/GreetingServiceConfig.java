@@ -2,6 +2,7 @@ package guru.springframework.sfgdi.config;
 
 import com.springframework.pets.PetService;
 import com.springframework.pets.PetServiceFactory;
+import guru.springframework.sfgdi.datasource.FakeDataSource;
 import guru.springframework.sfgdi.repositories.EnglishGreetingRepository;
 import guru.springframework.sfgdi.repositories.EnglishGreetingRepositoryImpl;
 import guru.springframework.sfgdi.services.I18nEnglishGreetingService;
@@ -9,12 +10,15 @@ import guru.springframework.sfgdi.services.I18nSpanishGreetingService;
 import guru.springframework.sfgdi.services.PrimaryGreetingService;
 import guru.springframework.sfgdi.services.PropertyInjectedGreetingService;
 import guru.springframework.sfgdi.services.SetterInjectedGreetingService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 
+@PropertySource("classpath:datasource.properties")
 @ImportResource("classpath:sfgdi-config.xml") // resources-Folder ist im Classpath. Diese Annotation funktioniert auch in der Main-Klasse!!!
 @Configuration // --> Sagt Spring "das ist eine Konfigurationsklasse und definiert Beans"
 public class GreetingServiceConfig {
@@ -87,4 +91,21 @@ public class GreetingServiceConfig {
 	PetService catPetService(PetServiceFactory petServiceFactory) {
 		return petServiceFactory.getPetService("cat");
 	}
+
+	// -------------------------------------------------------------------------------------------------------------------------
+	// ------------------------------------------- EXTERMAL CONFIGURATION ------------------------------------------------------
+	// -------------------------------------------------------------------------------------------------------------------------
+
+	//@formatter:off
+	@Bean
+	FakeDataSource fakeDataSource(@Value("${guru.username}") String username,
+	                              @Value("${guru.password}") String password,
+	                              @Value("${guru.jdbcUrl}") String jdbcUrl) {
+		FakeDataSource fakeDataSource = new FakeDataSource();
+		fakeDataSource.setUsername(username);
+		fakeDataSource.setPassword(password);
+		fakeDataSource.setJdbcUrl(jdbcUrl);
+		return fakeDataSource;
+	}
+	//@formatter:on
 }
